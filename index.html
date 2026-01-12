@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>斜线分割图片网页</title>
+    <style>
+        /* 重置默认样式，移除页面边距 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        /* 主容器，使用相对定位作为两个图片区域的参考点 */
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+        }
+
+        /* 左侧图片区域 - 使用clip-path创建斜线切割效果 */
+        .image-section {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        /* 左侧区域：从左上角到右下角的三角形区域 */
+        .left-section {
+            clip-path: polygon(0 0, 100% 0, 0 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        /* 右侧区域：从右上角到左下角的三角形区域 */
+        .right-section {
+            clip-path: polygon(100% 0, 100% 100%, 0 100%);
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        /* 图片链接样式，填充整个区域 */
+        .image-link {
+            display: block;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        /* 鼠标悬停时的缩放效果，提升用户体验 */
+        .image-link:hover {
+            transform: scale(1.05);
+        }
+
+        /* 图片样式，覆盖整个链接区域 */
+        .image-link img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* 可选：为图片添加文字说明层 */
+        .image-overlay {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            padding: 10px 20px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 5px;
+            pointer-events: none;
+        }
+
+        /* 响应式设计：在小屏幕上调整布局 */
+        @media (max-width: 768px) {
+            .image-overlay {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 主容器 -->
+    <div class="container">
+        <!-- 左侧图片区域（左上三角形） -->
+        <div class="image-section left-section">
+            <!-- 
+                点击此链接将跳转到指定网页
+                href属性：目标网页地址，可以修改为实际链接
+                target="_blank"：在新标签页中打开链接
+            -->
+            <a href="https://example.com/page1" target="_blank" class="image-link">
+                <!-- 
+                    img1.jpg：第一张图片
+                    src属性：图片文件路径，需要将img1.jpg放在同一目录下
+                    alt属性：图片加载失败时显示的替代文本
+                -->
+                <img src="img1.jpg" alt="图片1">
+                <!-- 可选的文字说明，可以删除或修改 -->
+                <div class="image-overlay">点击访问页面1</div>
+            </a>
+        </div>
+
+        <!-- 右侧图片区域（右下三角形） -->
+        <div class="image-section right-section">
+            <!-- 
+                点击此链接将跳转到指定网页
+                可以修改href为不同的目标网页
+            -->
+            <a href="https://example.com/page2" target="_blank" class="image-link">
+                <!-- 
+                    img2.jpg：第二张图片
+                    src属性：图片文件路径，需要将img2.jpg放在同一目录下
+                -->
+                <img src="img2.jpg" alt="图片2">
+                <!-- 可选的文字说明 -->
+                <div class="image-overlay">点击访问页面2</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- 
+    ========================================
+    网页实现逻辑说明：
+    ========================================
+    
+    1. 布局结构：
+       - 使用两个绝对定位的div容器(.left-section 和 .right-section)
+       - 两个容器都占据整个视口(100% 宽度和高度)
+       - 通过CSS的clip-path属性裁剪出三角形区域，形成斜线分割效果
+    
+    2. 斜线分割实现：
+       - 左侧区域：clip-path: polygon(0 0, 100% 0, 0 100%)
+         创建从左上角到右上角再到左下角的三角形
+       - 右侧区域：clip-path: polygon(100% 0, 100% 100%, 0 100%)
+         创建从右上角到右下角再到左下角的三角形
+       - 两个三角形共享一条从右上到左下的对角线，形成斜线分割
+    
+    3. 图片处理：
+       - 使用object-fit: cover确保图片填充整个区域且保持比例
+       - 图片会自动裁剪以适应三角形区域
+    
+    4. 交互效果：
+       - 每个图片区域包裹在<a>标签中，实现点击跳转功能
+       - target="_blank"使链接在新标签页打开
+       - hover效果：鼠标悬停时图片轻微放大(scale 1.05)
+    
+    5. 使用说明：
+       - 将两张图片命名为img1.jpg和img2.jpg，放在HTML文件同一目录
+       - 修改href属性中的网址为实际目标链接
+       - 可以删除或修改.image-overlay文字说明
+       - 支持响应式设计，在移动设备上也能正常显示
+    
+    ========================================
+    -->
+</body>
+</html>
