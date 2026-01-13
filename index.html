@@ -1,49 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Gallery</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <style>
+    /* Hover animations */
+    .left-img, .right-img {
+      display: inline-block;
+      cursor: pointer;
+      will-change: transform;
+      transform-origin: center;
+    }
 
-        body, html {
-            height: 100%;
-            overflow: hidden;
-            font-family: Arial, sans-serif;
-        }
+    @keyframes spinShrinkCCW {
+      0% { transform: rotate(0deg) scale(1); }
+      100% { transform: rotate(-360deg) scale(0.65); }
+    }
 
-        .container {
-            display: flex;
-            width: 100%;
-            height: 100vh;
-        }
+    @keyframes spinShrinkCW {
+      0% { transform: rotate(0deg) scale(1); }
+      100% { transform: rotate(360deg) scale(0.65); }
+    }
 
-        .section {
-            flex: 1;
-            overflow: hidden;
-        }
+    .left-img:hover {
+      animation: spinShrinkCCW 0.9s linear infinite;
+    }
 
-        .section img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-    </style>
+    .right-img:hover {
+      animation: spinShrinkCW 0.9s linear infinite;
+    }
+
+    /* Preserve any existing layout defaults */
+    img { max-width: 100%; height: auto; }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="section">
-            <img src="img1.png" alt="Purple gradient image with 'withe rose' ">
-        </div>
-        <div class="section">
-            <img src="img2.png" alt="Pink gradient image with 'black rose' ">
-        </div>
-    </div>
+  <a href="blackrose.html" aria-label="Go to Black Rose">
+    <img class="left-img" src="left.png" alt="Left image" />
+  </a>
+
+  <a href="nopain.html" aria-label="Go to No Pain">
+    <img class="right-img" src="right.png" alt="Right image" />
+  </a>
 </body>
 </html>
