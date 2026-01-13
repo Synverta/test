@@ -1,47 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
-  <style>
-    /* Hover animations */
-    .left-img, .right-img {
-      display: inline-block;
-      cursor: pointer;
-      will-change: transform;
-      transform-origin: center;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    @keyframes spinShrinkCCW {
-      0% { transform: rotate(0deg) scale(1); }
-      100% { transform: rotate(-360deg) scale(0.65); }
-    }
+        body, html {
+            height: 100%;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
 
-    @keyframes spinShrinkCW {
-      0% { transform: rotate(0deg) scale(1); }
-      100% { transform: rotate(360deg) scale(0.65); }
-    }
+        .container {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+        }
 
-    .left-img:hover {
-      animation: spinShrinkCCW 0.9s linear infinite;
-    }
+        .section {
+            flex: 1;
+            overflow: hidden;
+        }
 
-    .right-img:hover {
-      animation: spinShrinkCW 0.9s linear infinite;
-    }
+        .section a{
+            display:block;
+            width:100%;
+            height:100%;
+        }
 
-    /* Preserve any existing layout defaults */
-    img { max-width: 100%; height: auto; }
-  </style>
+        .section img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transform-origin: center center;
+            will-change: transform;
+        }
+
+        @keyframes spinShrinkCCW {
+            from { transform: rotate(0deg) scale(1); }
+            to   { transform: rotate(-360deg) scale(0.2); }
+        }
+
+        @keyframes spinShrinkCW {
+            from { transform: rotate(0deg) scale(1); }
+            to   { transform: rotate(360deg) scale(0.2); }
+        }
+
+        .left:hover img{
+            animation: spinShrinkCCW 0.8s linear infinite;
+        }
+
+        .right:hover img{
+            animation: spinShrinkCW 0.8s linear infinite;
+        }
+    </style>
 </head>
 <body>
-  <a href="blackrose.html" aria-label="Go to Black Rose">
-    <img class="left-img" src="left.png" alt="Left image" />
-  </a>
-
-  <a href="nopain.html" aria-label="Go to No Pain">
-    <img class="right-img" src="right.png" alt="Right image" />
-  </a>
+    <div class="container">
+        <div class="section left">
+            <a href="blackrose.html">
+                <img src="img1.png" alt="left image">
+            </a>
+        </div>
+        <div class="section right">
+            <a href="nopain.html">
+                <img src="img2.png" alt="right image">
+            </a>
+        </div>
+    </div>
 </body>
 </html>
