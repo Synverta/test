@@ -1,12 +1,275 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>nopain</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>In the Dark</title>
+
+  <style>
+    :root{
+      --black:#050507;
+      --deep:#0b0b10;
+      --text:#b5b5c2;
+      --muted:#7a7a86;
+      --pain:#6f1f2a;
+      --light:#fff3c4;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+
+    body{
+      margin:0;
+      background:
+        radial-gradient(1200px 900px at 25% 75%, #0e0e18 0%, var(--black) 60%, #030304 100%);
+      color:var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                   Inter, Roboto, Helvetica, Arial, sans-serif;
+      overflow:hidden;
+    }
+
+    .stage{
+      position:relative;
+      width:100%;
+      height:100%;
+      isolation:isolate;
+    }
+
+    /* Subtle breathing darkness */
+    .pulse{
+      position:absolute;
+      inset:-20%;
+      background:
+        radial-gradient(900px 600px at 30% 70%, rgba(120,30,40,.18), transparent 60%),
+        radial-gradient(800px 500px at 60% 40%, rgba(255,255,255,.04), transparent 65%);
+      animation: breathe 8s ease-in-out infinite;
+      z-index:1;
+    }
+
+    @keyframes breathe{
+      0%,100%{ transform:scale(1); opacity:.75; }
+      50%{ transform:scale(1.06); opacity:1; }
+    }
+
+    /* Light beam (top-right) */
+    .beam{
+      position:absolute;
+      top:-14vh;
+      right:-16vw;
+      width:75vw;
+      height:75vh;
+      transform: rotate(-12deg);
+      pointer-events:none;
+      z-index:3;
+    }
+
+    .beam::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(closest-side at 88% 22%,
+          rgba(255,250,220,.95) 0%,
+          rgba(255,235,170,.55) 20%,
+          rgba(255,235,170,.2) 45%,
+          rgba(255,235,170,0) 70%);
+      mix-blend-mode:screen;
+      filter: blur(2px);
+    }
+
+    .beam::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        conic-gradient(from 210deg at 86% 18%,
+          rgba(255,245,200,0) 0deg,
+          rgba(255,245,200,.25) 20deg,
+          rgba(255,245,200,.06) 45deg,
+          rgba(255,245,200,0) 80deg,
+          rgba(255,245,200,0) 360deg);
+      mix-blend-mode:screen;
+      filter: blur(8px);
+      opacity:.8;
+    }
+
+    /* Dust in the light */
+    .motes{
+      position:absolute;
+      inset:0;
+      z-index:4;
+      pointer-events:none;
+      mask-image: radial-gradient(600px 420px at 88% 12%, #000 0%, transparent 70%);
+      -webkit-mask-image: radial-gradient(600px 420px at 88% 12%, #000 0%, transparent 70%);
+    }
+
+    .mote{
+      position:absolute;
+      width:2px;
+      height:2px;
+      border-radius:50%;
+      background:rgba(255,248,210,.9);
+      box-shadow:0 0 12px rgba(255,248,210,.4);
+      animation: drift linear infinite;
+    }
+
+    @keyframes drift{
+      from{ transform:translate(0,0); opacity:0; }
+      15%{ opacity:.7; }
+      70%{ opacity:.4; }
+      to{ transform:translate(-140px,220px); opacity:0; }
+    }
+
+    /* Noise */
+    .noise{
+      position:absolute;
+      inset:-30%;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+      background-size:240px 240px;
+      mix-blend-mode:overlay;
+      opacity:.15;
+      z-index:6;
+      pointer-events:none;
+    }
+
+    /* Content */
+    .content{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:flex-end;
+      padding:clamp(20px,4vw,60px);
+      z-index:5;
+    }
+
+    .panel{
+      max-width:720px;
+      border-left:1px solid rgba(255,255,255,.08);
+      padding-left:clamp(16px,3vw,30px);
+    }
+
+    h1{
+      margin:0 0 14px 0;
+      font-size:clamp(28px,4.5vw,46px);
+      letter-spacing:.12em;
+      color:rgba(245,245,255,.95);
+    }
+
+    p{
+      margin:0 0 20px 0;
+      line-height:1.9;
+      color:rgba(190,190,205,.78);
+      font-size:clamp(14px,1.8vw,16px);
+    }
+
+    .divider{
+      width:180px;
+      height:1px;
+      background:linear-gradient(90deg, rgba(255,255,255,.25), transparent);
+      margin:16px 0 18px;
+    }
+
+    .hint{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(12,12,16,.45);
+      backdrop-filter: blur(10px);
+      font-size:13px;
+      color:rgba(215,215,230,.85);
+    }
+
+    .dot{
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:rgba(255,235,150,.95);
+      box-shadow:0 0 18px rgba(255,235,150,.4);
+    }
+
+    /* Light label */
+    .source{
+      position:absolute;
+      top:18px;
+      right:18px;
+      padding:10px 14px;
+      border-radius:14px;
+      background:rgba(255,245,205,.08);
+      border:1px solid rgba(255,245,205,.15);
+      color:rgba(255,245,210,.8);
+      font-size:12px;
+      letter-spacing:.12em;
+      backdrop-filter: blur(12px);
+      z-index:7;
+      user-select:none;
+    }
+
+    /* Vignette */
+    .vignette{
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(1200px 800px at 70% 10%, rgba(0,0,0,.15), rgba(0,0,0,.85) 70%),
+        radial-gradient(900px 700px at 30% 70%, transparent, rgba(0,0,0,.8) 70%);
+      z-index:8;
+      pointer-events:none;
+    }
+  </style>
 </head>
+
 <body>
-  <h1>nopain.html</h1>
-  <p><a href="index.html">返回首页</a></p>
+  <div class="stage">
+
+    <div class="pulse"></div>
+
+    <div class="beam"></div>
+
+    <div class="source">RELIEF</div>
+
+    <div class="motes" id="motes"></div>
+
+    <div class="content">
+      <div class="panel">
+        <h1>THIS IS NOT THE END</h1>
+        <p>
+          The weight you feel is not a failure of character.<br>
+          It is the cost of remaining conscious in a world that does not explain itself.
+        </p>
+        <div class="divider"></div>
+        <div class="hint">
+          <span class="dot"></span>
+          <span>Look to the upper right. The light does not save you — it reminds you.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="noise"></div>
+    <div class="vignette"></div>
+
+  </div>
+
+  <script>
+    const motes = document.getElementById('motes');
+
+    function r(min,max){ return Math.random()*(max-min)+min; }
+
+    for(let i=0;i<48;i++){
+      const m=document.createElement('div');
+      m.className='mote';
+      m.style.left=r(65,98)+'vw';
+      m.style.top=r(-2,35)+'vh';
+      const s=r(1,2.5);
+      m.style.width=s+'px';
+      m.style.height=s+'px';
+      m.style.opacity=r(.25,.9);
+      m.style.animationDuration=r(4,10)+'s';
+      m.style.animationDelay=r(-8,0)+'s';
+      motes.appendChild(m);
+    }
+  </script>
 </body>
 </html>
+
