@@ -3,82 +3,52 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gallery</title>
+  <title>Image Gallery</title>
   <style>
-    html, body {
-      height: 100%;
-      margin: 0;
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html,body{height:100%;overflow:hidden;font-family:Arial,sans-serif;}
+
+    .container{display:flex;width:100%;height:100vh;}
+    .section{flex:1;overflow:hidden;}
+
+    /* ONLY left is black to avoid white showing during shrink */
+    .section.left{background:#000;}
+    .section.left a{background:#000;}
+
+    .section a{display:block;width:100%;height:100%;}
+
+    .section img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      transform-origin:center center;
+      will-change:transform;
     }
 
-    /* Two-panel layout */
-    .split {
-      height: 100vh;
-      display: flex;
+    @keyframes spinShrinkCCW {
+      from { transform: rotate(0deg) scale(1); }
+      to   { transform: rotate(-360deg) scale(0.2); }
+    }
+    @keyframes spinShrinkCW {
+      from { transform: rotate(0deg) scale(1); }
+      to   { transform: rotate(360deg) scale(0.2); }
     }
 
-    .panel {
-      flex: 1;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* ONLY the left side has a black background so white never appears during shrink */
-    .panel.left {
-      background: #000;
-    }
-
-    /* Right side keeps original edge behavior: no forced background */
-    .panel.right {
-      background: transparent;
-    }
-
-    .panel a {
-      width: 100%;
-      height: 100%;
-      display: block;
-      text-decoration: none;
-    }
-
-    .panel img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transform-origin: center;
-      transition: transform 1.2s ease;
-      will-change: transform;
-    }
-
-    /* Hover rotate + shrink animations (1.2s) */
-    .panel.left a:hover img {
-      transform: rotate(-5deg) scale(0.92);
-    }
-
-    .panel.right a:hover img {
-      transform: rotate(5deg) scale(0.92);
-    }
-
-    /* Keep halves stacked on small screens */
-    @media (max-width: 768px) {
-      .split { flex-direction: column; }
-      .panel { height: 50vh; }
-    }
+    .left:hover img { animation: spinShrinkCCW 1.2s linear infinite; }
+    .right:hover img{ animation: spinShrinkCW  1.2s linear infinite; }
   </style>
 </head>
 <body>
-  <div class="split">
-    <div class="panel left">
-      <a href="blackrose.html" aria-label="Black Rose">
-        <img src="blackrose.jpg" alt="Black Rose" />
+  <div class="container">
+    <div class="section left">
+      <a href="blackrose.html" aria-label="Go to blackrose">
+        <img src="img1.png" alt="left image">
       </a>
     </div>
-
-    <div class="panel right">
-      <a href="nopain.html" aria-label="No Pain">
-        <img src="nopain.jpg" alt="No Pain" />
+    <div class="section right">
+      <a href="nopain.html" aria-label="Go to nopain">
+        <img src="img2.png" alt="right image">
       </a>
     </div>
   </div>
