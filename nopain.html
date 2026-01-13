@@ -1,47 +1,315 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>No Pain 1200mg</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>No Pain — Please pause for a moment</title>
+  <meta name="description" content="If you’re thinking about ending your life, please pause. You deserve support, not an irreversible decision." />
+
+  <style>
+    :root{
+      --bg:#0b0b10;
+      --panel:#0f0f16;
+      --text:#f2f2f7;
+      --muted:#b6b7c2;
+      --line:#232336;
+
+      --btn-bg:#ffffff;
+      --btn-text:#000000;
+
+      --radius:16px;
+      --shadow: 0 12px 30px rgba(0,0,0,.35);
+
+      --wrap:1100px;
+      --p:24px;
+      --p-lg:56px;
+
+      --danger:#ff6b84;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.7;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:var(--wrap); margin:0 auto; padding:var(--p)}
+    .section{padding:var(--p-lg) 0}
+    .stack > * + *{margin-top:14px}
+
+    header{
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(10px);
+      background: rgba(11,11,16,.72);
+      border-bottom:1px solid var(--line);
+      z-index: 10;
+    }
+    .nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+    }
+    .brand{
+      font-weight:800;
+      font-size:18px;
+      letter-spacing:.4px;
+    }
+
+    .btn{
+      padding:10px 18px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.85);
+      background:var(--btn-bg);
+      color:var(--btn-text);
+      font-weight:650;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      box-shadow: 0 8px 18px rgba(0,0,0,.25);
+      transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+      user-select:none;
+    }
+    .btn:hover{transform: translateY(-1px); box-shadow: 0 12px 26px rgba(0,0,0,.35);}
+    .btn:active{transform: translateY(0px); opacity:.92;}
+    .btn:focus-visible{outline:2px solid #fff; outline-offset:4px;}
+
+    .btn--ghost{
+      background: transparent;
+      color: var(--text);
+      border:1px solid rgba(255,255,255,.22);
+      box-shadow:none;
+    }
+    .btn--ghost:hover{box-shadow:none; transform: translateY(-1px); border-color: rgba(255,255,255,.35);}
+
+    h1{
+      font-size:46px;
+      line-height:1.15;
+      margin:0 0 16px;
+      letter-spacing:-.4px;
+    }
+    h2{
+      font-size:26px;
+      margin:0 0 14px;
+      letter-spacing:-.2px;
+    }
+    p{
+      margin:0;
+      color:var(--muted);
+      max-width: 78ch;
+    }
+
+    .kicker{
+      display:inline-block;
+      padding:6px 10px;
+      border:1px solid rgba(255,255,255,.16);
+      border-radius:999px;
+      color: rgba(242,242,247,.9);
+      font-size: 13px;
+      letter-spacing:.2px;
+      background: rgba(255,255,255,.03);
+    }
+
+    .card{
+      background: rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .callout{
+      border-left: 3px solid var(--danger);
+      padding-left: 16px;
+    }
+
+    .list{
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+    .list li{margin:10px 0;}
+
+    footer{
+      border-top:1px solid var(--line);
+      padding:36px 0;
+      font-size:14px;
+      color:var(--muted);
+    }
+    .footer-row{
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    @media (max-width: 900px){
+      h1{font-size:38px;}
+      .section{padding:40px 0;}
+    }
+  </style>
 </head>
 
 <body>
-  <header>
-    <div class="brand">Blackrose</div>
-    <a href="https://nowpayments.io/pos-terminal/blackrose" class="btn" target="_blank" rel="noopener noreferrer">Donate</a>
-  </header>
 
-  <main class="product-detail">
-    <div class="product-image-wrap">
-      <div class="product-image">
-        <img src="nopain.jpeg" alt="No Pain 1200mg" />
-      </div>
+<header>
+  <div class="wrap nav">
+    <div class="brand">No Pain</div>
+    <a class="btn btn--ghost" href="index.html">Back</a>
+  </div>
+</header>
+
+<main>
+
+<section class="wrap section">
+  <span class="kicker">Crisis support</span>
+
+  <h1>If You’re Thinking About Ending Your Life, Please Pause for a Moment</h1>
+
+  <div class="stack">
+    <p>If you’re here, it means something important: a part of you is still reaching for relief, not disappearance.</p>
+
+    <p>You may feel exhausted beyond words. You may have tried to endure, to understand, to explain, to hold on—and nothing seems to ease the pain anymore.</p>
+
+    <p>If your thoughts are saying, “I can’t do this anymore,” we want you to know this first:</p>
+
+    <div class="card callout">
+      <p><strong>You are not weak.</strong><br/>You are overwhelmed by pain that has lasted too long.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap section" aria-label="Support message">
+  <div class="stack">
+    <h2>Something Important You Deserve to Hear</h2>
+
+    <p>Wanting to end your life does not mean your life has no value. It means the pain you are carrying has become heavier than what one person can bear alone.</p>
+
+    <p>When suffering is intense and prolonged, the mind narrows. It begins to believe that stopping life is the only way to stop pain.</p>
+
+    <p>This is not a personal failure. It is a human response to unbearable distress.</p>
+  </div>
+</section>
+
+<section class="wrap section" aria-label="Pause">
+  <div class="stack">
+    <h2>You Do Not Have to Decide “Forever” Right Now</h2>
+
+    <p>Please don’t force yourself to answer questions like:</p>
+
+    <ul class="list">
+      <li>Should I live or die?</li>
+      <li>Does my life have meaning?</li>
+    </ul>
+
+    <p>Those questions are too heavy for this moment.</p>
+
+    <p>Instead, we gently ask just this:</p>
+
+    <div class="card callout">
+      <p><strong>Please don’t make an irreversible decision right now.</strong><br/>Give yourself time. Just stay alive for this moment.</p>
+      <p>Not for the future. Not for anyone else. Just to let this wave of pain pass a little.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap section" aria-label="If you feel at the edge">
+  <div class="stack">
+    <h2>If You Feel Like You’re at the Edge</h2>
+
+    <p>Try saying this to yourself, even quietly:</p>
+
+    <ul class="list">
+      <li><strong>I don’t have to carry this alone.</strong></li>
+      <li><strong>I need support, not answers.</strong></li>
+      <li><strong>I can stay alive today, and think later.</strong></li>
+    </ul>
+
+    <p>If you can, tell one real person what you’re going through—a friend, a family member, a volunteer, a counselor, anyone.</p>
+
+    <p>Pain spoken aloud loses some of its power.</p>
+  </div>
+</section>
+
+<section class="wrap section" aria-label="Immediate help">
+  <div class="stack">
+    <h2>If You Feel You Might Hurt Yourself Soon</h2>
+
+    <div class="card callout">
+      <p><strong>Please read this carefully:</strong></p>
+      <p>If you believe you may act on these thoughts, or you have a plan to harm yourself, <strong>please seek immediate help right now.</strong></p>
+      <ul class="list">
+        <li>Contact your local emergency services</li>
+        <li>Or reach out to a suicide crisis line</li>
+        <li>In the United States: Call or text <strong>988</strong> (Suicide &amp; Crisis Lifeline)</li>
+        <li>In other countries: Please contact your local emergency number or a crisis hotline in your area</li>
+      </ul>
+      <p>Asking for help is not a burden. It is an act of self-preservation.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap section" aria-label="Stay with you">
+  <div class="stack">
+    <h2>We Want to Stay With You a Little Longer</h2>
+
+    <p>You may not believe things will get better—and that’s okay. We are not asking you to believe anything right now.</p>
+
+    <p>Only this:</p>
+
+    <div class="card">
+      <p>Your pain is real.</p>
+      <p>You deserve to be understood.</p>
+      <p>And you do not have to go through this alone.</p>
     </div>
 
-    <div class="product-info">
-      <h1>No Pain 1200mg</h1>
-      <p class="price">$100</p>
-      <p>No Pain is a non-prescription pain killer designed to provide fast relief.</p>
+    <p>If you can, please remain here in this world a little longer. Even just for today. Even just for this hour.</p>
 
-      <div class="purchase-options">
-        <h2>Purchase Options</h2>
-        <ul>
-          <li><strong>5 Pills</strong> — $100</li>
-          <li><strong>10 Pills</strong> — $180</li>
-          <li><strong>20 Pills</strong> — $350</li>
-        </ul>
-      </div>
+    <p><strong>The fact that you are still here matters.</strong></p>
+  </div>
+</section>
 
-      <div class="buy-controls">
-        <label for="quantity">Quantity:</label>
-        <input type="number" id="quantity" name="quantity" min="1" value="1" />
-        <button class="btn">Add to Cart</button>
-      </div>
+<section class="wrap section" aria-label="One more step">
+  <div class="stack">
+    <h2>If You’re Willing to Take One More Step</h2>
+
+    <ul class="list">
+      <li>Reach out to someone you trust</li>
+      <li>Contact a mental health or crisis professional</li>
+      <li>Stay here, breathe, and allow support to find you</li>
+    </ul>
+
+    <p>You do not need to be okay. You only need to not be alone.</p>
+
+    <p><strong>We are here.</strong></p>
+
+    <div style="margin-top:18px; display:flex; gap:12px; flex-wrap:wrap;">
+      <a class="btn btn--ghost" href="index.html">Back to home</a>
+      <a class="btn" href="blackrose.html">Blackrose</a>
     </div>
-  </main>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-row">
+    <div>© <span id="year"></span> No Pain</div>
+    <div>You do not have to go through this alone.</div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
 </body>
-
 </html>
