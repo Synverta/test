@@ -3,75 +3,83 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Links</title>
+  <title>Gallery</title>
   <style>
-    /* Ensure the page never shows white during transforms */
     html, body {
       height: 100%;
       margin: 0;
-      padding: 0;
-      background: #000;
-      overflow-x: hidden;
     }
 
-    body {
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .container {
-      display: flex;
-      width: 100vw;
+    /* Two-panel layout */
+    .split {
       height: 100vh;
-      background: #000; /* avoid any gaps behind sections */
-    }
-
-    .section {
-      flex: 1;
       display: flex;
-      justify-content: center;
+    }
+
+    .panel {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      display: flex;
       align-items: center;
-      transition: all 1.2s ease; /* keep hover duration */
-      transform-origin: center;
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-      will-change: transform, flex;
+      justify-content: center;
     }
 
-    .left {
-      background: #000; /* left section explicitly black */
+    /* ONLY the left side has a black background so white never appears during shrink */
+    .panel.left {
+      background: #000;
     }
 
-    .right {
-      background: #000; /* keep consistent background to avoid white flashes */
+    /* Right side keeps original edge behavior: no forced background */
+    .panel.right {
+      background: transparent;
     }
 
-    .section a {
-      color: white;
+    .panel a {
+      width: 100%;
+      height: 100%;
+      display: block;
       text-decoration: none;
-      font-size: 2em;
-      transition: all 1.2s ease; /* keep link hover duration */
     }
 
-    .section:hover {
-      flex: 5;
-      transform: rotate(-2deg) scale(1.03);
+    .panel img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transform-origin: center;
+      transition: transform 1.2s ease;
+      will-change: transform;
     }
 
-    .section:hover a {
-      font-size: 3em;
+    /* Hover rotate + shrink animations (1.2s) */
+    .panel.left a:hover img {
+      transform: rotate(-5deg) scale(0.92);
+    }
+
+    .panel.right a:hover img {
+      transform: rotate(5deg) scale(0.92);
+    }
+
+    /* Keep halves stacked on small screens */
+    @media (max-width: 768px) {
+      .split { flex-direction: column; }
+      .panel { height: 50vh; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="section left">
-      <a href="https://www.google.com" target="_blank" rel="noopener noreferrer">Google</a>
+  <div class="split">
+    <div class="panel left">
+      <a href="blackrose.html" aria-label="Black Rose">
+        <img src="blackrose.jpg" alt="Black Rose" />
+      </a>
     </div>
-    <div class="section right">
-      <a href="https://www.github.com" target="_blank" rel="noopener noreferrer">GitHub</a>
+
+    <div class="panel right">
+      <a href="nopain.html" aria-label="No Pain">
+        <img src="nopain.jpg" alt="No Pain" />
+      </a>
     </div>
   </div>
 </body>
